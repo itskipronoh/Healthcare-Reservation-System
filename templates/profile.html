@@ -1,0 +1,220 @@
+{% extends "layout.html" %}
+
+{% block header%}
+<title>Sign up page</title>
+{%endblock%}
+
+{% block body%}
+{% if profile_created %}
+{% for profile in profile_created %}
+<div class="container">
+    <form method="POST">
+        <div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-4 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">{{current_user.username}}</span><span class="text-black-50">{{current_user.email}}</span><span> </span></div>
+        </div>
+        <div class="col-md-6 border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Profile Settings</h4>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6"><label class="labels">School ID</label>
+                      <input type="text" class="form-control" name="school_id" placeholder="fScool ID" value={{current_user.school_id}} readonly>
+                    </div>
+                    <div class="col-md-6"><label class="labels">Full name</label>
+                      <input type="text" class="form-control" name="username" placeholder="Full name" value="{{current_user.username}}" readonly>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-12"><label class="labels">Mobile Number</label>
+                      <input type="text" class="form-control" name="phonenumber" placeholder="enter phone number" {% if profile %} value="{{profile.phonenumber }}" readonly {% endif %}></div>
+                    <div class="col-md-12">
+                      <label class="labels">Address Line 1</label>
+                      <input type="text" class="form-control" name="address" placeholder="Enter address line 1" {% if profile %} value="{{profile.address }}" readonly {% endif %}>
+                    </div>
+                    <div class="form-group">
+                      <label for="marital_status">Marital Status:</label>
+                      <select class="form-control" id="marital_status" name="marital_status" {% if profile %} value="{{profile.marital_status }}" readonly {% endif %} required>
+                        <option value="" disabled selected>Select Marital Status</option>
+                        <option value="Married">Married</option>
+                        <option value="Single">Single</option>
+                        <option value="Divorced">Divorced</option>
+                      </select>
+                    </div>
+                    <div class="col-md-12">
+                      <label class="labels">Postcode</label>
+                      <input type="text" class="form-control" name="postcode" placeholder="Postal code" {% if profile %} value="{{profile.postcode }}" readonly {% endif %}>
+                    </div>
+                    <div class="col-md-12">
+                      <label class="labels">City</label>
+                      <input type="text" class="form-control" name="city" placeholder="City" {% if profile %} value="{{profile.city }}" readonly {% endif %}>
+                    </div>
+                    <div class="col-md-12">
+                      <label class="labels">Area</label>
+                      <input type="text" class="form-control" placeholder="Enter your area" name="area" {% if profile %} value="{{profile.area }}" readonly {% endif %}>
+                    </div>
+                    <div class="col-md-12"><label class="labels">Email ID</label>
+                      <input type="text" class="form-control" placeholder="enter email id" name="email" value="{{current_user.email}}" readonly>
+                    </div>
+                    {% if current_user.role == 'patient' %}
+                    <div class="col-md-12">
+                      <label class="labels">Blood Group</label>
+                        <select class="form-control" id="blood_type" name="blood_type" {% if profile %} value="{{profile.blood_type }}" readonly {% endif %} required>
+                          <option value="" disabled selected>Select Blood Type</option>
+                          <option value="A+">A+</option>
+                          <option value="A-">A-</option>
+                          <option value="B+">B+</option>
+                          <option value="B-">B-</option>
+                          <option value="AB+">AB+</option>
+                          <option value="AB-">AB-</option>
+                          <option value="O+">O+</option>
+                          <option value="O-">O-</option>
+                        </select>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                  <label for="height">Height:</label>
+                  <input type="number" class="form-control" id="height" name="height" {% if profile %} value="{{profile.height }}" readonly {% endif %} min="0">
+                </div>
+                <div class="form-group">
+                  <label for="weight">Weight:</label>
+                  <input type="number" class="form-control" id="weight" name="weight" min="0" {% if profile %} value="{{profile.weight }}" readonly {% endif %}>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                      <label class="labels">Country</label>
+                      <input type="text" class="form-control" name="country" placeholder="country" {% if profile %} value="{{profile.country }}" readonly {% endif %}>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="labels">State/Region</label>
+                      <input type="text" name="state" class="form-control" placeholder="state" {% if profile %} value="{{profile.state }}" readonly {% endif %}>
+                    </div>
+                </div>
+                {% if profile %}
+                <div class="mt-5 text-center">
+                  <button class="btn btn-primary profile-button" type="submit" disabled>Save Profile</button>
+                </div>
+                {% else %}
+                <div class="mt-5 text-center">
+                  <button class="btn btn-primary profile-button" type="submit">Save Profile</button>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+  
+</div>
+</div>
+    </form>
+
+</div>
+{% endfor %}
+{% else %}
+<div class="container">
+    <form method="POST">
+        <div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-4 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">{{current_user.username}}</span><span class="text-black-50">{{current_user.email}}</span><span> </span></div>
+        </div>
+        <div class="col-md-6 border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Profile Settings</h4>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6"><label class="labels">School ID</label>
+                      <input type="text" class="form-control" name="school_id" placeholder="fScool ID" value={{current_user.school_id}} readonly>
+                    </div>
+                    <div class="col-md-6"><label class="labels">Full name</label>
+                      <input type="text" class="form-control" name="username" placeholder="Full name" value="{{current_user.username}}" readonly>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-12"><label class="labels">Mobile Number</label>
+                      <input type="text" class="form-control" name="phonenumber" placeholder="enter phone number" required>
+                    </div>
+                    <div class="col-md-12">
+                      <label class="labels">Address Line 1</label>
+                      <input type="text" class="form-control" name="address" placeholder="Enter address line 1" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="marital_status">Marital Status:</label>
+                      <select class="form-control" id="marital_status" name="marital_status" required>
+                        <option value="" disabled selected>Select Marital Status</option>
+                        <option value="Married">Married</option>
+                        <option value="Single">Single</option>
+                        <option value="Divorced">Divorced</option>
+                      </select>
+                    </div>
+                    <div class="col-md-12">
+                      <label class="labels">Postcode</label>
+                      <input type="text" class="form-control" name="postcode" placeholder="Postal code" required>
+                    </div>
+                    <div class="col-md-12">
+                      <label class="labels">City</label>
+                      <input type="text" class="form-control" name="city" placeholder="City" required>
+                    </div>
+                    <div class="col-md-12">
+                      <label class="labels">Area</label>
+                      <input type="text" class="form-control" placeholder="Enter your area" name="area" required>
+                    </div>
+                    <div class="col-md-12"><label class="labels">Email ID</label>
+                      <input type="text" class="form-control" placeholder="enter email id" name="email" value="{{current_user.email}}" readonly>
+                    </div>
+                    {% if current_user.role == 'patient' %}
+                    <div class="col-md-12">
+                      <label class="labels">Blood Group</label>
+                        <select class="form-control" id="blood_type" name="blood_type">
+                          <option value="" disabled selected>Select Blood Type</option>
+                          <option value="A+">A+</option>
+                          <option value="A-">A-</option>
+                          <option value="B+">B+</option>
+                          <option value="B-">B-</option>
+                          <option value="AB+">AB+</option>
+                          <option value="AB-">AB-</option>
+                          <option value="O+">O+</option>
+                          <option value="O-">O-</option>
+                        </select>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                  <label for="height">Height:</label>
+                  <input type="number" class="form-control" id="height" name="height" min="0" required>
+                </div>
+                <div class="form-group">
+                  <label for="weight">Weight:</label>
+                  <input type="number" class="form-control" id="weight" name="weight" min="0" required>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                      <label class="labels">Country</label>
+                      <input type="text" class="form-control" name="country" placeholder="country" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="labels">State/Region</label>
+                      <input type="text" name="state" class="form-control" placeholder="state" required>
+                    </div>
+                </div>
+                <div class="mt-5 text-center">
+                  <button class="btn btn-primary profile-button" type="submit">Save Profile</button>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</div>
+</div>
+    </form>
+
+</div>
+{% endif %}
+{%endblock%}
+
+
+
+

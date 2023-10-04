@@ -1,0 +1,92 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+          
+         <main>
+        <section class="container cd-table-container">
+        <h1> Hello, {{current_user.username}}</h1>
+         <p> Here are the list of your registered student patients.</p>
+          <h2 class="cd-title">Upcoming Appointments</h2>
+
+          <input type="text" class="cd-search table-filter" autofocus data-table="order-table" placeholder="Search for your patient.." />
+        <div class="table-responsive">
+          <table class="cd-table order-table table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Height</th>
+                <th>Weight</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>Blood Type</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+          
+            <tbody>
+             {% for appointment in appointments %}
+              <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ appointment.patient.username }}</td>
+                <td>{{ appointment.height }}</td>
+                <td>{{ appointment.weight }}</td>
+                <td>{{ appointment.phonenumber }}</td>
+                <td>{{ appointment.patient.email }}</td>
+                <td>{{ appointment.blood_type }}</td>
+                <td>
+                  {% if appointment.appointment_status == 'booked' %}
+                  <a href="{{ url_for('takeup', id=appointment.id) }}" class="btn btn-danger">Booked</a>
+                  {% elif appointment.appointment_status == 'approved' %}
+                  <a href="#" class="btn btn-success">Approved</a>
+                  {% endif %}
+                </td>
+                {% if appointment.appointment_status == 'approved' %}
+                <td><a href="{{ url_for('takeup', id=appointment.id) }}" disabled class="btn btn-dark">Take up</a></td>
+                {% else %}
+                <td><a href="{{ url_for('takeup', id=appointment.id) }}" class="btn btn-dark">Take up</a></td>
+                {% endif %}
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>       
+        </div>
+        </section>
+         <!-- Display the small dashboard -->
+  <section class="container mt-5 mb-4">
+    <div class="card bg-light">
+      <div class="card-body">
+        <h2 class="card-title text-center mb-4">Dashboard</h2>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body text-center">
+                <h4 class="card-title">Total Appointments</h4>
+                <p class="card-text display-4">{{ num_appointments }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body text-center">
+                <h4 class="card-title">Blood Group Counts</h4>
+                <ul class="list-unstyled">
+                  {% for blood_group, count in blood_group_counts.items() %}
+                  <li>{{ blood_group }}: {{ count }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+         </main>
+                   
+        <!-- Table Search JS -->
+          <script  src="{{url_for('static',filename='admin-table.js')}}"></script>
+    
+{% endblock %}

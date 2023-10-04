@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block header%}
+<title>Account page | {{ current_user.school_id}}</title>
+{%endblock%}
+
+{% block body%}
+<div class="container container-form">
+    <form method="POST" class="centered">
+        <h1 class="greet-2">Update you profile now</h1>
+        <div class="form-group">
+            <label for="school_id" class="mb-2">Your School ID</label>
+            <input type="text" id="school_id" name="school_id" class="form-control" autocomplete="off" placeholder="Your School ID" required value="{{ current_user.school_id }}">
+        </div>
+        <div class="form-group">
+            <label for="email" class="mb-2">Your email</label>
+            <input type="email" id="email" name="email" class="form-control" placeholder="Enter Password" required value="{{ current_user.email }}" >
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Update your account</button>
+    </form>
+</div>
+
+
+
+
+<script>
+    var sidemenu = document.getElementById("sidemenu");
+        function closemenu(){
+            sidemenu.style.top = "-100vh";
+        }
+        function openmenu(){
+            sidemenu.style.top = "0";
+        }
+</script>
+{%endblock%}
+
+
+
+

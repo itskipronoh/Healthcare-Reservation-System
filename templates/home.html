@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="container">
+    <h1>Here are your Appointments</h1>
+    {% if appointments|length < 1%}
+    <h3>There are no appointments. Create on below</h3>
+    <h2>Book an Appointment</h2>
+    <a href="{{url_for('book_appointment')}}" class="btn btn-success">Make your first appointment</a>
+    {% else%}
+    <table class="cd-table order-table table">
+        <tr>
+            <th>Name</th>
+            <th>Height</th>
+            <th>Weight</th>
+            <th>Marital Status</th>
+            <th>Address</th>
+            <th>Phone Number</th>
+            <th>Email</th>
+            <th>Blood Type</th>
+            <th>Action</th>
+        </tr>
+        {%for appointment in appointments%}
+        <tr>
+            <td>{{ current_user.username }}</td>
+            <td>{{ appointment.height }}</td>
+            <td>{{ appointment.weight }}</td>
+            <td>{{ appointment.marital_status }}</td>
+            <td>{{ appointment.address }}</td>
+            <td>{{ appointment.phonenumber }}</td>
+            <td>{{ current_user.email }}</td>
+            <td>{{ appointment.blood_type }}</td>
+            <td>
+                <div class="appointment-actions">
+                    <a href="/delete/{{appointment.patient_id}}" class="btn btn-danger">Delete</a>
+                </div>
+            </td>
+        </tr>
+        {%endfor%}
+    </table>
+    {% endif %}
+{% endblock body %}

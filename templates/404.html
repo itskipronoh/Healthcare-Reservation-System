@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="d-flex align-items-center justify-content-center vh-100">
+        <div class="text-center row">
+            <div class=" col-md-6">
+                <img src="https://cdn.pixabay.com/photo/2017/03/09/12/31/error-2129569__340.jpg" alt=""
+                    class="img-fluid">
+            </div>
+            <div class="col-md-6 mt-5">
+                <h3><i class="fa fa-warning"></i> Oops! Page not found!</h3>
+                <p>The page you requested was not found.</p>
+                {% if current_user.role == 'patient'%}
+                <a href="{{url_for('home')}}" class="btn btn-primary go-home">Take me somewhere safe</a>
+                {% elif current_user.role == 'doctor' %}
+                <a href="{{url_for('admin')}}" class="btn btn-primary go-home">Take me somewhere safe</a>
+                {% else %}
+                <a href="{{url_for('login')}}" class="btn btn-primary go-home">Sign In</a>
+                <a href="{{url_for('signup')}}" class="btn btn-primary go-home">Create an account</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

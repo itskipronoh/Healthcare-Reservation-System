@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block header%}
+<title>Change password request | {{ current_user.school_id}}</title>
+{%endblock%}
+
+{% block body%}
+<div class="container container-form">
+    <form method="POST" class="centered">
+        <h1 class="greet-2">Reset your password now</h1>
+        <p class="greet">You are doing a great thing to keep the internet safe</p>
+        <div class="form-group">
+            <label for="email" class="mb-2">Your email</label>
+            <input type="email" id="email" autocomplete="off" name="email" class="form-control" placeholder="Enter Password" required {% if current_user.is_authenticated %} value="{{ current_user.email }}" readonly {% else %} value="" {% endif %} >
+        </div>
+
+        <button type="submit" onclick="sendMail()" class="btn btn-primary mt-3">Request for reset password link</button>
+    </form>
+</div>
+
+
+<script>
+    window.addEventListener("DOMContentLoaded", (event) =>{
+        let templateParams = {
+            subject: '{{ email_message.subject }}',
+            sender: '{{ email_message.sender }}',
+            recipient: '{{ email_message.recipients }}',
+            body: '{{ email_message.body }}'
+        };
+
+    function sendMail(){
+
+        // Send email using emailjs
+        emailjs.send('service_u0warqa', 'template_qktzatg', templateParams)
+            .then(function(response) {
+                // If the email sending is successful, log the success response and show a success alert
+                console.log("SUCCESS", response.status, response.text);
+                alert("Email Sent Successfully");
+            })
+            .catch(function(error) {
+                // If there is an error in sending the email, log the error and show an error alert
+                console.log("FAILED", error);
+                alert("Failed to send email. Please try again later");
+            });
+        }
+        sendMail(templateParams)
+    })
+</script>
+
+{%endblock%}
+
+
+
+

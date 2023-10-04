@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="container">
+    <h2>Book an Appointment</h2>
+    {% for appointment in appointments %}
+    <h3> Your ID is {{ appointment.id }}, Use this to book an appointment</h3>
+    {% endfor %}
+</div>
+<div class="container">
+<form method="POST" class="centered" action="{{ url_for('book_appointment') }}">
+  <div class="form-group">
+    <label for="appointment_id" class="mb-3">Appointment ID:</label>
+    <input type="text" class="form-control" id="appointment_id" name="appointment_id" required>
+  </div>
+  <button type="submit" class="btn btn-primary mt-3">Book Appointment</button>
+</form>
+
+</div>
+
+{% endblock body %}

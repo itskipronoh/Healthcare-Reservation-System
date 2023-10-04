@@ -1,0 +1,66 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+ <div class="container container-form">
+<div class="container">
+    <p class="greet">Hello, {{current_user.username}}</p>
+    <h1 class="greet-2">How's your health today?</h1>
+  </div>
+    <form action="" method="POST" class="centered">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" name="name" required {% if current_user.role == 'patient' %} value="{{ current_user.school_id }}" readonly {% endif %}>
+      </div>
+      <div class="form-group">
+        <label for="date_registered">Date Registered:</label>
+        <input type="datetime-local" class="form-control" id="date_registered" name="date_registered" required>
+      </div>
+      <div class="form-group">
+        <label for="marital_status">Marital Status:</label>
+        <select class="form-control" id="marital_status" name="marital_status" required>
+          <option value="" disabled selected>Select Marital Status</option>
+          <option value="Married">Married</option>
+          <option value="Single">Single</option>
+          <option value="Divorced">Divorced</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="address">Address:</label>
+        <input type="text" class="form-control" id="address" name="address" required>
+      </div>
+      <div class="form-group">
+        <label for="phonenumber">Phone Number:</label>
+        <input type="text" class="form-control" id="phonenumber" name="phonenumber"  required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="email" name="email"  required {% if current_user.role == 'patient' %} value="{{ current_user.email }}" readonly {% endif %}>
+      </div>
+      <div class="form-group">
+        <label for="height">Height:</label>
+        <input type="number" class="form-control" id="height" name="height" min="0">
+      </div>
+      <div class="form-group">
+        <label for="weight">Weight:</label>
+        <input type="number" class="form-control" id="weight" name="weight" min="0">
+      </div>
+      <div class="form-group">
+        <label for="blood_type">Blood Type:</label>
+        <select class="form-control" id="blood_type" name="blood_type">
+          <option value="">Select Blood Type</option>
+          <option value="A+">A+</option>
+          <option value="A-">A-</option>
+          <option value="B+">B+</option>
+          <option value="B-">B-</option>
+          <option value="AB+">AB+</option>
+          <option value="AB-">AB-</option>
+          <option value="O+">O+</option>
+          <option value="O-">O-</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary mt-3">Request checkin</button>
+    </form>
+  </div>
+
+  {% endblock body %}
